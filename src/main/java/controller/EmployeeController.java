@@ -14,7 +14,7 @@ public class EmployeeController {
 
     @RequestMapping("/")
     @ResponseBody
-    public String index() {
+    public String welcome() {
         return "Welcome to Employees API!";
     }
 
