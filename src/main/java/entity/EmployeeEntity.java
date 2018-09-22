@@ -1,21 +1,21 @@
-package dto;
+package entity;
 
 import java.util.Objects;
 
-public abstract class Employee {
+public class EmployeeEntity {
     private Integer id;
     private String name;
+    private String contractTypeName;
     private Integer roleId;
     private String roleName;
     private String roleDescription;
     private Double hourlySalary;
     private Double monthlySalary;
 
-    Employee() {
-
+    public EmployeeEntity() {
     }
 
-    public Employee(Integer id) {
+    public EmployeeEntity(Integer id) {
         this.id = id;
     }
 
@@ -25,6 +25,10 @@ public abstract class Employee {
 
     public String getName() {
         return name;
+    }
+
+    public String getContractTypeName() {
+        return contractTypeName;
     }
 
     public Integer getRoleId() {
@@ -47,14 +51,12 @@ public abstract class Employee {
         return monthlySalary;
     }
 
-    public abstract Double getAnnualSalary();
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Employee)) return false;
-        Employee employee = (Employee) o;
-        return Objects.equals(getId(), employee.getId());
+        if (!(o instanceof EmployeeEntity)) return false;
+        EmployeeEntity that = (EmployeeEntity) o;
+        return Objects.equals(getId(), that.getId());
     }
 
     @Override

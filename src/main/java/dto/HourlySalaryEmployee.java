@@ -4,8 +4,12 @@ import java.util.Optional;
 
 public class HourlySalaryEmployee extends Employee {
 
-    public HourlySalaryEmployee(Integer id, String name, Integer roleId, String roleName, String roleDescription, Double hourlySalary, Double monthlySalary) {
-        super(id, name, roleId, roleName, roleDescription, hourlySalary, monthlySalary);
+    public HourlySalaryEmployee() {
+
+    }
+
+    public HourlySalaryEmployee(Integer id) {
+        super(id);
     }
 
     @Override
