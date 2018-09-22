@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width-device-width, initial-scale-1">
+    <script src="http://www.jimsproch.com/react/future/react.js"></script>
+    <script src="http://www.jimsproch.com/react/future/react-dom.js"></script>
+    <script src="http://www.jimsproch.com/react/babel-browser.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-table/6.5.3/react-table.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/react-table/6.5.3/react-table.css">
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+    class TableExp extends React.Component {
+        constructor () {
+            super();
+
+            this.state = {
+                tableData: [{
+                    id: '',
+                    name: '',
+                    roleId: '',
+                    roleName: '',
+                    roleDescription: '',
+                    hourlySalary: '',
+                    monthlySalary: '',
+                    annualSalary: '',
+                }],
+            };
+        }
+
+        componentDidMount () {
+            axios.get('http://localhost:8080/employees', {
+                responseType: 'json'
+            }).then(response => {
+                this.setState({ tableData: response.data });
+            });
+        }
+
+        render () {
+            const { tableData } = this.state;
+
+            return (<ReactTable.default
+                            data={tableData}
+                            columns={[
+                                {
+                                    Header: 'Employee',
+                                    columns: [
+                                        {
+                                            Header: 'ID',
+                                            accessor: 'id',
+                                        },
+                                        {
+                                            Header: 'Name',
+                                            accessor: 'name',
+                                        },
+                                        {
+                                            Header: 'Role Id',
+                                            accessor: 'roleId',
+                                        },
+                                        {
+                                            Header: 'Role Name',
+                                            accessor: 'roleName',
+                                        },
+                                        {
+                                            Header: 'Role Description',
+                                            accessor: 'roleDescription',
+                                        },
+                                        {
+                                            Header: 'Hourly Salary',
+                                            accessor: 'hourlySalary',
+                                        },
+                                        {
+                                            Header: 'Monthly Salary',
+                                            accessor: 'monthlySalary',
+                                        },
+                                        {
+                                            Header: 'Annual Salary',
+                                            accessor: 'annualSalary',
+                                        },
+                                    ],
+                                },
+                            ]}
+                            defaultPageSize={10}
+                            className="-striped -highlight"
+                    />
+            );
+        }
+    };
+
+    ReactDOM.render(<div><TableExp/></div>, document.getElementById("root"));
+</script>
+</body>
+</html>

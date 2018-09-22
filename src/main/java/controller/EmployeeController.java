@@ -7,10 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import repository.EmployeeRepository;
 
 import java.util.List;
@@ -36,12 +33,14 @@ public class EmployeeController {
         return message;
     }
 
+    @CrossOrigin
     @RequestMapping("/employees")
     @ResponseBody
     public List<Employee> getEmployees() {
         return employeeRepository.getEmployees();
     }
 
+    @CrossOrigin
     @RequestMapping("/employees/{id}")
     @ResponseBody
     public Employee getEmployee(@PathVariable("id") Integer id) {
