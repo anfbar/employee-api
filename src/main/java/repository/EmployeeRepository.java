@@ -2,6 +2,7 @@ package repository;
 
 import dto.Employee;
 import entity.EmployeeEntity;
+import exception.ResourceNotFoundException;
 import factory.EmployeeFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,6 +34,16 @@ public class EmployeeRepository {
                 .stream(response.getBody())
                 .map(this::getEmployee)
                 .collect(toList());
+    }
+
+    public Employee getEmployee(Integer id) {
+        ResponseEntity<EmployeeEntity[]> response = getResponseEntity();
+        return Arrays
+                .stream(response.getBody())
+                .filter(employee -> employee.getId().equals(id))
+                .map(this::getEmployee)
+                .findAny()
+                .orElseThrow(ResourceNotFoundException::new);
     }
 
     private ResponseEntity<EmployeeEntity[]> getResponseEntity() {
